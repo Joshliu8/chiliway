@@ -4,6 +4,7 @@
   <title>My HTML Page</title>
 </head>
 <body>
+  <div id="console"></div>
   <h1>Store User Data</h1>
   <form>
     <label for="name">Name:</label>
@@ -36,12 +37,25 @@ function storeUser() {
   .then(response => response.json())
   .then(data => {
     const logMessage = `New user added: ${data.name}, ${data.age}, ${data.jobTitle}`;
+    logToConsole(logMessage);
     fs.appendFile('./log.txt', logMessage + '\n', err => {
       if (err) console.error(err);
     });
   })
   .catch(error => console.error(error));
 }
+    
+    function logToConsole(message) {
+      const consoleDiv = document.getElementById('console');
+      const p = document.createElement('p');
+      p.innerText = message;
+      consoleDiv.appendChild(p);
+    }
+
+    // Example usage
+    logToConsole('Hello, world!');
+    logToConsole('This is a log message.');
+    
   </script>
 </body>
 </html>
