@@ -23,6 +23,7 @@
     const fs = require('fs');
 
 function storeUser() {
+  logToConsole("inside storeUser()");
   const name = document.getElementById('name').value;
   const age = document.getElementById('age').value;
   const jobTitle = document.getElementById('jobTitle').value;
