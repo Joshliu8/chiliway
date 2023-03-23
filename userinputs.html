@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My HTML Page</title>
+</head>
+<body>
+  <h1>Store User Data</h1>
+  <form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age"><br>
+
+    <label for="jobTitle">Job Title:</label>
+    <input type="text" id="jobTitle" name="jobTitle"><br>
+
+    <button type="button" onclick="storeUser()">Submit</button>
+  </form>
+
+  <script>
+    function storeUser() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const jobTitle = document.getElementById('jobTitle').value;
+
+      fetch('/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name, age, jobTitle})
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+    }
+  </script>
+</body>
+</html>
