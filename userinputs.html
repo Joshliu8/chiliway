@@ -36,7 +36,7 @@ function storeUser() {
   .then(response => response.json())
   .then(data => {
     const logMessage = `New user added: ${data.name}, ${data.age}, ${data.jobTitle}`;
-    fs.appendFile('log.txt', logMessage + '\n', err => {
+    fs.appendFile('./log.txt', logMessage + '\n', err => {
       if (err) console.error(err);
     });
   })
