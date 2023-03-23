@@ -28,7 +28,6 @@
     const jobTitle = document.getElementById('jobTitle').value;
     logToConsole(JSON.stringify({name, age, jobTitle}));
     fetch('/users', {
-      logToConsole("inside fetch");
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
