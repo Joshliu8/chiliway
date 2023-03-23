@@ -20,42 +20,37 @@
   </form>
 
   <script>
-    const fs = require('fs');
+  const fs = require('fs');
 
-function storeUser() {
-  const name = document.getElementById('name').value;
-  const age = document.getElementById('age').value;
-  const jobTitle = document.getElementById('jobTitle').value;
-  logToConsole(name+", "+age+", "+jobTitle);
-  logToConsole(JSON.stringify({name, age, jobTitle}));
-  fetch('/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({name, age, jobTitle})
-  })
-  .then(response => response.json())
-  .then(data => {
-    const logMessage = `New user added: ${data.name}, ${data.age}, ${data.jobTitle}`;
-    logToConsole(logMessage);
-    fs.appendFile('./log.txt', logMessage + '\n', err => {
-      if (err) console.error(err);
-    });
-  })
-  .catch(error => console.error(error));
-}
+  function storeUser() {
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const jobTitle = document.getElementById('jobTitle').value;
+    logToConsole(JSON.stringify({name, age, jobTitle}));
+    fetch('/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name, age, jobTitle})
+    })
+    .then(response => response.json())
+    .then(data => {
+      const logMessage = `New user added: ${data.name}, ${data.age}, ${data.jobTitle}`;
+      logToConsole(logMessage);
+      fs.appendFile('./log.txt', logMessage + '\n', err => {
+        if (err) console.error(err);
+      });
+    })
+    .catch(error => console.error(error));
+  }
     
-    function logToConsole(message) {
-      const consoleDiv = document.getElementById('console');
-      const p = document.createElement('p');
-      p.innerText = message;
-      consoleDiv.appendChild(p);
-    }
-
-    // Example usage
-    logToConsole('Hello, world!');
-    logToConsole('This is a log message.');
+  function logToConsole(message) {
+    const consoleDiv = document.getElementById('console');
+    const p = document.createElement('p');
+    p.innerText = message;
+    consoleDiv.appendChild(p);
+   }
     
   </script>
 </body>
