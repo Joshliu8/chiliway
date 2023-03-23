@@ -19,22 +19,29 @@
   </form>
 
   <script>
-    function storeUser() {
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const jobTitle = document.getElementById('jobTitle').value;
+    const fs = require('fs');
 
-      fetch('/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name, age, jobTitle})
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error));
-    }
+function storeUser() {
+  const name = document.getElementById('name').value;
+  const age = document.getElementById('age').value;
+  const jobTitle = document.getElementById('jobTitle').value;
+
+  fetch('/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name, age, jobTitle})
+  })
+  .then(response => response.json())
+  .then(data => {
+    const logMessage = `New user added: ${data.name}, ${data.age}, ${data.jobTitle}`;
+    fs.appendFile('log.txt', logMessage + '\n', err => {
+      if (err) console.error(err);
+    });
+  })
+  .catch(error => console.error(error));
+}
   </script>
 </body>
 </html>
