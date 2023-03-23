@@ -27,6 +27,7 @@ function storeUser() {
   const age = document.getElementById('age').value;
   const jobTitle = document.getElementById('jobTitle').value;
   logToConsole(name+", "+age+", "+jobTitle);
+  logToConsole(JSON.stringify({name, age, jobTitle}));
   fetch('/users', {
     method: 'POST',
     headers: {
